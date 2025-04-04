@@ -33,11 +33,13 @@ def safe_parse(value):
 
 
 for country in countries_with_data:
-    row = df.loc[df["Country Name"] == country].values[0]
-    clean_row = row[~pd.isna(row)]
-    converted = [safe_parse(x) for x in clean_row]
+    row = df.loc[df["Country Name"] == country].values[0] #getting row for df_filtered2 (indicator name for mortality rate attributed to unsafe hygeine )
+    clean_row = row[~pd.isna(row)] # get rid of null or NaN cell values
+    converted = [safe_parse(x) for x in clean_row] # convert from comma virgule to period decimal value
 
-    y_axis_data = converted
+    y_axis_data.append(converted) #y axis data - Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene (per 100,000 population)
+
+print(y_axis_data) #object array of relevant data for each country
 
 def average(row):
     data_only = row[4:]
@@ -49,13 +51,12 @@ def average(row):
     return sum / len(data_only)
 
 for country in countries_with_data:
-    row = df.loc[df["Country Name"] == country].values[10]
-    clean_row = row[~pd.isna(row)]
-    converted = [safe_parse(x) for x in clean_row]
-    value = average(converted)
+    row = df.loc[df["Country Name"] == country].values[10] #getting row for df_filtered2 (indicator name for handwashing facility)
+    clean_row = row[~pd.isna(row)] # get rid of null or NaN cell values
+    converted = [safe_parse(x) for x in clean_row] # convert from comma virgule to period decimal value
+    value = average(converted) #average for people with basic handwashing facilities including soap and water (% of population)
 
-    x_axis_data.append(value)
+    x_axis_data.append(value) # x axis data - average of people with basic handwashing facilities including soap and water (% of population)
 
 
-print(x_axis_data) #this is the average sanitation
-print(len(x_axis_data))
+print(x_axis_data) #integer array of this is the average sanitation for each country
