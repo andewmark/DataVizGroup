@@ -1,0 +1,14 @@
+{
+  "name": "ff715c733b64c498",
+  "main": "ff715c733b64c498@116.js",
+  "version": "116.0.0",
+  "homepage": "https://observablehq.com/d/ff715c733b64c498",
+  "author": {
+    "name": "Syracuse University",
+    "url": "https://observablehq.com/@syracuse-university"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}
