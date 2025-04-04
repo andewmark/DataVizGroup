@@ -13,7 +13,8 @@ df_filtered2 = df[df["Indicator Name"] == indicator_namex]
 df_filtered = df_filtered.drop(columns=["Country Code", "Indicator Name", "Indicator Code"])
 df_filtered2 = df_filtered2.drop(columns=["Country Code", "Indicator Name", "Indicator Code"])
 
-
+y_axis_data = []
+x_axis_data = []
 
 countries_with_data = df_filtered["Country Name"].unique()
 # print(countries_with_data)
@@ -31,26 +32,30 @@ def safe_parse(value):
     return value
 
 
-# for country in countries_with_data:
-#     row = df.loc[df["Country Name"] == country].values[0]
-#     clean_row = row[~pd.isna(row)]
-#     converted = [safe_parse(x) for x in clean_row]
-#
-#     print(converted)
+for country in countries_with_data:
+    row = df.loc[df["Country Name"] == country].values[0]
+    clean_row = row[~pd.isna(row)]
+    converted = [safe_parse(x) for x in clean_row]
 
-def total(row):
+    y_axis_data = converted
+
+def average(row):
     data_only = row[4:]
     sum = 0
     for i in data_only:
         sum += i
-    return sum
+    if(len(data_only)) == 0:
+        return 0
+    return sum / len(data_only)
 
 for country in countries_with_data:
     row = df.loc[df["Country Name"] == country].values[10]
     clean_row = row[~pd.isna(row)]
     converted = [safe_parse(x) for x in clean_row]
-    value = total(converted)
+    value = average(converted)
 
-    print(round(value,2))
+    x_axis_data.append(value)
 
 
+print(x_axis_data) #this is the average sanitation
+print(len(x_axis_data))
